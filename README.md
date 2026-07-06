@@ -50,12 +50,13 @@ With **Bofe** you can easily build kanban style boards for your projects, person
 
 ## Environment variables
 
-| Name          | Type   | Default               |
-| ------------- | ------ | --------------------- |
-| API_URL       | String | https://api.bofe.app/ |
-| APP_TOKEN     | String |                       |
-| APP_URL       | String | https://bofe.app/     |
-| WEBSOCKET_URL | String | wss://api.bofe.app/   |
+| Name                | Type   | Default               |
+| ------------------- | ------ | --------------------- |
+| API_URL             | String | https://api.bofe.app/ |
+| APP_TOKEN           | String |                       |
+| APP_URL             | String | https://bofe.app/     |
+| MAX_FILE_SIZE_BYTES | Number | 104857600             |
+| WEBSOCKET_URL       | String | wss://api.bofe.app/   |
 
 ## License
 

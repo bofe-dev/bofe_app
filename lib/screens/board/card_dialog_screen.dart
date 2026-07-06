@@ -11,6 +11,7 @@ import '../../components/dialogs/card_attachment_dialog.dart';
 import '../../components/label_chip.dart';
 import '../../components/query_result_builder.dart';
 import '../../components/scrollable_dialog.dart';
+import '../../components/thumbnail_item.dart';
 import '../../components/user_item.dart';
 import '../../config.dart';
 import '../../constants.dart';
@@ -109,13 +110,7 @@ class CardDialogScreen extends StatelessWidget {
                                 .map(
                                   (attachment) => InkWell(
                                     onTap: () => showCardAttachmentDialog(context, cardId: id, id: attachment.id),
-                                    child: CachedNetworkImage(
-                                      useOldImageOnUrlChange: true,
-                                      imageUrl: attachment.thumbnailUrl.toString(),
-                                      width: 64,
-                                      height: 64,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    child: ThumbnailItem(attachment: attachment),
                                   ),
                                 )
                                 .toList(),

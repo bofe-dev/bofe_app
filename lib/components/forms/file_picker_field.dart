@@ -1,5 +1,5 @@
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' show MultipartFile;
 import 'package:http_parser/http_parser.dart' show MediaType;
 
@@ -10,8 +10,20 @@ import '../../graphql/fragments/attachment_fragment.graphql.dart';
 import '../../graphql/mutations/create_attachment.graphql.dart';
 import '../thumbnail_item.dart';
 
-class ImagePickerField extends StatefulWidget {
-  ImagePickerField({
+const _acceptedTypeGroups = [
+  XTypeGroup(label: 'PDF documents', extensions: ['pdf'], mimeTypes: ['application/pdf']),
+  XTypeGroup(label: 'GIF images', extensions: ['gif'], mimeTypes: ['image/gif']),
+  XTypeGroup(label: 'JPG images', extensions: ['jpeg', 'jpg'], mimeTypes: ['image/jpeg']),
+  XTypeGroup(label: 'PNG images', extensions: ['png'], mimeTypes: ['image/png']),
+  XTypeGroup(label: 'SVG images', extensions: ['svg'], mimeTypes: ['image/svg+xml']),
+  XTypeGroup(label: 'WEBP images', extensions: ['webp'], mimeTypes: ['image/webp']),
+  XTypeGroup(label: 'MP4 videos', extensions: ['mp4'], mimeTypes: ['video/mp4']),
+  XTypeGroup(label: 'OGG videos', extensions: ['ogg'], mimeTypes: ['video/ogg']),
+  XTypeGroup(label: 'WEBM videos', extensions: ['webm'], mimeTypes: ['video/webm']),
+];
+
+class FilePickerField extends StatefulWidget {
+  FilePickerField({
     super.key,
     this.labelText,
     this.hintText,
@@ -25,7 +37,7 @@ class ImagePickerField extends StatefulWidget {
        validator = _validatorToMulti(validator),
        isMulti = false;
 
-  const ImagePickerField.multi({
+  const FilePickerField.multi({
     super.key,
     this.labelText,
     this.hintText,
@@ -62,20 +74,19 @@ class ImagePickerField extends StatefulWidget {
   }
 
   @override
-  State<ImagePickerField> createState() => _ImagePickerFieldState();
+  State<FilePickerField> createState() => _FilePickerFieldState();
 }
 
-class _ImagePickerFieldState extends State<ImagePickerField> {
+class _FilePickerFieldState extends State<FilePickerField> {
   final List<XFile> _pendingXFiles = [];
 
-  Future<void> _addImages(FormFieldState<List<Fragment$AttachmentFragment>> state) async {
-    final imagePicker = ImagePicker();
+  Future<void> _addFiles(FormFieldState<List<Fragment$AttachmentFragment>> state) async {
     final List<XFile> pickedXFiles = [];
 
     if (widget.isMulti) {
-      pickedXFiles.addAll(await imagePicker.pickMultiImage());
+      pickedXFiles.addAll(await openFiles(acceptedTypeGroups: _acceptedTypeGroups));
     } else {
-      final pickedXFile = await imagePicker.pickImage(source: ImageSource.gallery);
+      final pickedXFile = await openFile(acceptedTypeGroups: _acceptedTypeGroups);
 
       if (pickedXFile != null) {
         pickedXFiles.add(pickedXFile);
@@ -179,8 +190,8 @@ class _ImagePickerFieldState extends State<ImagePickerField> {
                   child: TextButton.icon(
                     style: TextButton.styleFrom(padding: EdgeInsets.zero),
                     icon: Icon(Icons.add_rounded),
-                    label: Text(context.l10n.addImage),
-                    onPressed: () => _addImages(state),
+                    label: Text(context.l10n.addFile),
+                    onPressed: () => _addFiles(state),
                   ),
                 ),
             ],

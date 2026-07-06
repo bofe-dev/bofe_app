@@ -11,6 +11,7 @@ import '../../graphql/fragments/edit_card_fragment.graphql.dart';
 import '../../graphql/queries/board_labels.graphql.dart';
 import '../../graphql/queries/board_lists.graphql.dart';
 import '../../graphql/schema.graphql.dart';
+import 'file_picker_field.dart';
 import 'form_container.dart';
 import 'image_picker_field.dart';
 import 'select_field.dart';
@@ -128,8 +129,8 @@ class _CardFormState<T> extends State<CardForm<T>> {
             _content = value ?? '';
           },
         ),
-        ImagePickerField.multi(
-          labelText: context.l10n.attachedImages,
+        FilePickerField.multi(
+          labelText: context.l10n.attachments,
           errorText: _errorAttachments,
           initialValue: _attachments,
           onSaved: (values) {

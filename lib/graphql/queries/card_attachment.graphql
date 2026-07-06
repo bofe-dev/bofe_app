@@ -4,6 +4,7 @@ query CardAttachment($cardId: ID!, $id: ID!) {
         attachment(id: $id) {
             id
             fileName
+            fileType
             url
             createdAt
         }

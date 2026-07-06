@@ -63,10 +63,15 @@ type AttachmentObject {
 }
 
 enum BlobFileType {
+	APPLICATION_PDF
 	IMAGE_GIF
 	IMAGE_JPEG
 	IMAGE_PNG
+	IMAGE_SVG_XML
 	IMAGE_WEBP
+	VIDEO_MP4
+	VIDEO_OGG
+	VIDEO_WEBM
 }
 
 type BoardObject {

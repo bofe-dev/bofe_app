@@ -19,3 +19,4 @@ export 'components/boards_grid_view.dart';
 export 'components/infinite_scroll_view.dart';
 export 'components/query_result_builder.dart';
 export 'components/snack_bar_alert.dart';
+export 'components/thumbnail_item.dart';

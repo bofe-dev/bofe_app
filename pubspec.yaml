@@ -72,7 +72,7 @@ dev_dependencies:
     # rules and activating additional ones.
     flutter_lints: ^6.0.0
 
-    build_runner: ^2.14.1
+    build_runner: ^2.15.1
     flutter_launcher_icons: ^0.14.4
     graphql_codegen: ^3.0.2
 

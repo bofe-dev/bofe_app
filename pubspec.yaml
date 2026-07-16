@@ -50,7 +50,7 @@ dependencies:
     http_parser: ^4.1.2
     image_picker: ^1.2.3
     intl: ^0.20.2
-    package_info_plus: ^10.2.0
+    package_info_plus: ^10.2.1
     pdfrx: ^2.4.7
     restart_app: ^1.8.3
     settings_ui: ^3.0.1

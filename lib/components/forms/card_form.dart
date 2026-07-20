@@ -99,7 +99,7 @@ class _CardFormState<T> extends State<CardForm<T>> {
             required: true,
             filterFn: (option, filter) => option.name.toLowerCase().contains(filter.toLowerCase()),
             optionBuilder: (item) => Text(item.name),
-            options: result.parsedData?.board?.allLists ?? [],
+            options: result.parsedData?.board?.allLists.where((list) => list.canMoveCard).toList() ?? [],
             onSaved: (list) {
               setState(() {
                 _list = list;

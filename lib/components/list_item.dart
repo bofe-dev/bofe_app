@@ -303,7 +303,7 @@ class _ListItemState extends State<ListItem> {
                     children:
                         widget.list.allCards
                             .map(
-                              (card) => widget.list.canMoveCard
+                              (card) => card.isMovable
                                   ? [
                                       CardItemDragTarget(
                                         listId: widget.list.id,

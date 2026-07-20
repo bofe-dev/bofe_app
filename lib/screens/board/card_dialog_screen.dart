@@ -6,13 +6,13 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../build_context.dart';
-import '../../components/card_popup_menu_button.dart';
+import '../../components/card_menu_anchor.dart';
+import '../../components/card_metadata.dart';
 import '../../components/dialogs/card_attachment_dialog.dart';
 import '../../components/label_chip.dart';
 import '../../components/query_result_builder.dart';
 import '../../components/scrollable_dialog.dart';
 import '../../components/thumbnail_item.dart';
-import '../../components/user_item.dart';
 import '../../config.dart';
 import '../../constants.dart';
 import '../../graphql/fragments/board_fragment.graphql.dart';
@@ -57,16 +57,11 @@ class CardDialogScreen extends StatelessWidget {
                     child: Column(
                       spacing: 8,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          spacing: 6,
                           children: [
-                            UserItem(
-                              user: card.user,
-                              onTap: card.user != null ? () => context.router.pushToUser(card.user!) : null,
-                            ),
-                            Spacer(),
+                            CardMetadata(card: card, showListName: true),
                             IconButton(
                               onPressed: () {
                                 SharePlus.instance.share(
@@ -80,10 +75,13 @@ class CardDialogScreen extends StatelessWidget {
                               tooltip: context.l10n.share,
                               icon: Icon(Icons.share_rounded),
                             ),
-                            CardPopupMenuButton(
+                            CardMenuAnchor(
                               card: card,
                               beforeEdit: () {
                                 context.pop();
+                              },
+                              afterArchive: () {
+                                refetch?.call();
                               },
                               afterDelete: () {
                                 context.pop();

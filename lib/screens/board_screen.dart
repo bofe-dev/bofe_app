@@ -73,7 +73,7 @@ class _BoardScreenState extends State<BoardScreen> {
         MenuAnchor(
           builder: (context, controller, child) => IconButton(
             onPressed: () => controller.isOpen ? controller.close() : controller.open(),
-            icon: Icon(Icons.more_vert_rounded),
+            icon: const Icon(Icons.more_vert_rounded),
             tooltip: context.l10n.more,
           ),
           menuChildren: [

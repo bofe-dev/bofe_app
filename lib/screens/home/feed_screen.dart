@@ -110,6 +110,12 @@ class _FeedScreenState extends State<FeedScreen> {
                         case Enum$ActivityAction.UPDATE_CARD_LIST || Enum$ActivityAction.UPDATE_CARD_POSITION:
                           actionText = context.l10n.hasMovedACardOn;
                           break;
+                        case Enum$ActivityAction.ARCHIVE_CARD:
+                          actionText = context.l10n.hasArchivedACard;
+                          break;
+                        case Enum$ActivityAction.UNARCHIVE_CARD:
+                          actionText = context.l10n.hasUnarchivedACard;
+                          break;
                         case Enum$ActivityAction.DELETE_CARD:
                           actionText = context.l10n.hasDeletedACardOn;
                           break;
@@ -184,6 +190,7 @@ class _FeedScreenState extends State<FeedScreen> {
                             if (activity.cardData != null)
                               CardItem(
                                 card: activity.cardData!,
+                                showListName: true,
                                 showPopupMenu: false,
                                 onTap: () {
                                   context.router.pushToBoard(activity.board);

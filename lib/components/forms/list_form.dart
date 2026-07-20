@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+import '../../build_context.dart';
 import '../../graphql/fragments/list_fragment.graphql.dart';
 import '../../graphql_client.dart';
 import 'form_container.dart';
+import 'switch_field.dart';
 import 'text_input_field.dart';
 
 class ListForm<T> extends StatefulWidget {
@@ -11,7 +13,7 @@ class ListForm<T> extends StatefulWidget {
 
   final GlobalKey<FormState> formKey;
   final Fragment$ListFragment? initialValues;
-  final Future<QueryResult<T>> Function(String name) onSubmit;
+  final Future<QueryResult<T>> Function(String name, bool archiveCards) onSubmit;
 
   @override
   State<ListForm> createState() => _ListFormState();
@@ -19,6 +21,7 @@ class ListForm<T> extends StatefulWidget {
 
 class _ListFormState<T> extends State<ListForm<T>> {
   String _name = '';
+  bool _archiveCards = false;
   String? _errorName;
 
   @override
@@ -26,6 +29,7 @@ class _ListFormState<T> extends State<ListForm<T>> {
     super.initState();
     if (widget.initialValues != null) {
       _name = widget.initialValues!.name;
+      _archiveCards = widget.initialValues!.archiveCards;
     }
   }
 
@@ -34,7 +38,7 @@ class _ListFormState<T> extends State<ListForm<T>> {
     return FormContainer(
       formKey: widget.formKey,
       onSubmit: () async {
-        final result = await widget.onSubmit(_name);
+        final result = await widget.onSubmit(_name, _archiveCards);
 
         if (result.hasErrors) {
           setState(() {
@@ -55,6 +59,13 @@ class _ListFormState<T> extends State<ListForm<T>> {
           maxLines: 1,
           onSaved: (value) {
             _name = value ?? '';
+          },
+        ),
+        SwitchField(
+          labelText: context.l10n.archiveCards,
+          initialValue: _archiveCards,
+          onSaved: (value) {
+            _archiveCards = value == true;
           },
         ),
       ],

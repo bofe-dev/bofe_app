@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../build_context.dart';
+import '../config.dart';
 import '../graphql/fragments/card_fragment.graphql.dart';
 import '../graphql/mutations/archive_card.graphql.dart';
 import '../graphql/mutations/delete_card.graphql.dart';
@@ -81,6 +83,17 @@ class CardMenuAnchor extends StatelessWidget {
         tooltip: context.l10n.more,
       ),
       menuChildren: [
+        MenuItemButton(
+          onPressed: () {
+            SharePlus.instance.share(
+              ShareParams(
+                uri: Config.appUrl.replace(path: '/${card.board.user.username}/${card.board.slug}/cards/${card.id}'),
+              ),
+            );
+          },
+          leadingIcon: Icon(Icons.share_rounded),
+          child: Text(context.l10n.share),
+        ),
         if (card.isEditable)
           MenuItemButton(
             onPressed: () {

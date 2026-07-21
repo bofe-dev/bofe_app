@@ -9,6 +9,7 @@ class QueryResultBuilder<T> extends StatefulWidget {
     super.key,
     required this.result,
     required this.buildIf,
+    this.loadingWidget,
     this.noResultWidget,
     this.refetch,
     required this.builder,
@@ -16,6 +17,7 @@ class QueryResultBuilder<T> extends StatefulWidget {
 
   final QueryResult<T> result;
   final bool Function(T?) buildIf;
+  final Widget? loadingWidget;
   final Widget? noResultWidget;
   final Refetch<T>? refetch;
   final Widget Function(T) builder;
@@ -61,7 +63,7 @@ class _QueryResultBuilderState<T> extends State<QueryResultBuilder<T>> with Rout
     if (widget.buildIf(widget.result.parsedData)) {
       return widget.builder(widget.result.parsedData as T);
     } else if (widget.result.isLoading) {
-      return _wrapInMaterial(Center(child: CircularProgressIndicator()));
+      return _wrapInMaterial(widget.loadingWidget ?? const Center(child: CircularProgressIndicator()));
     } else if (widget.result.hasException) {
       return _wrapInMaterial(
         Center(
@@ -82,7 +84,7 @@ class _QueryResultBuilderState<T> extends State<QueryResultBuilder<T>> with Rout
         ),
       );
     } else {
-      return widget.noResultWidget ?? _wrapInMaterial(Center(child: Text('No results found 👀')));
+      return _wrapInMaterial(widget.noResultWidget ?? Center(child: Text('No results found 👀')));
     }
   }
 }

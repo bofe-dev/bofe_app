@@ -191,7 +191,6 @@ class _FeedScreenState extends State<FeedScreen> {
                               CardItem(
                                 card: activity.cardData!,
                                 showListName: true,
-                                showPopupMenu: false,
                                 onTap: () {
                                   context.router.pushToBoard(activity.board);
                                   context.router.pushToCard(activity.cardData!);

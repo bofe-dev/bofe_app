@@ -98,11 +98,10 @@ class _DraggableCardItemState extends State<DraggableCardItem> {
 }
 
 class CardItem extends StatelessWidget {
-  const CardItem({super.key, required this.card, this.showListName = false, this.showPopupMenu = true, this.onTap});
+  const CardItem({super.key, required this.card, this.showListName = false, this.onTap});
 
   final Fragment$CardItemFragment card;
   final bool showListName;
-  final bool showPopupMenu;
   final Function()? onTap;
 
   @override
@@ -140,13 +139,10 @@ class CardItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     spacing: 6,
                     children: [
                       CardMetadata(card: card, showListName: showListName),
-                      if (showPopupMenu &&
-                          (card.isDeletable || card.isEditable || card.isArchivable || card.isUnarchivable))
-                        CardMenuAnchor(card: card, iconSize: 20),
+                      CardMenuAnchor(card: card, iconSize: 20),
                     ],
                   ),
                   Text(card.content, maxLines: 3, overflow: TextOverflow.fade, style: TextStyle(fontSize: 16)),

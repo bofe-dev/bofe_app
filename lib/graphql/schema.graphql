@@ -9,6 +9,8 @@ enum ActivityAction {
 	UPDATE_CARD
 	UPDATE_CARD_LIST
 	UPDATE_CARD_POSITION
+	ARCHIVE_CARD
+	UNARCHIVE_CARD
 	DELETE_CARD
 }
 
@@ -152,8 +154,12 @@ type CardObject {
 	allLabels: [LabelObject!]!
 	attachmentsCount: Int!
 	position: Int!
+	isArchivable: Boolean!
+	isArchived: Boolean!
+	isDeletable: Boolean!
 	isEditable: Boolean!
 	isMovable: Boolean!
+	isUnarchivable: Boolean!
 	createdAt: DateTime!
 	updatedAt: DateTime
 }
@@ -528,6 +534,7 @@ type ListObject {
 	position: Int!
 	cards(after: UUID, first: Int): CardObjectConnection!
 	allCards: [CardObject!]!
+	archiveCards: Boolean!
 	canCreateCard: Boolean!
 	canMoveCard: Boolean!
 	isEditable: Boolean!
@@ -568,6 +575,7 @@ type ListObjectEdge {
 input ListParams {
 	boardId: UUID!
 	name: String!
+	archiveCards: Boolean! = false
 }
 
 type MemberObject {
@@ -616,6 +624,7 @@ input MemberParams {
 }
 
 type MutationRoot {
+	archiveCard(id: UUID!): CardObject!
 	confirmEmail(confirmationParams: ConfirmationParams!): UserObject!
 	confirmPasswordReset(confirmationParams: ConfirmationParams!): Boolean!
 	createAttachment(file: Upload!): AttachmentObject!
@@ -636,6 +645,7 @@ type MutationRoot {
 	refreshSession: SessionObject!
 	sendEmailConfirmation: ConfirmationObject!
 	sendPasswordResetConfirmation(params: ResetPasswordParams!): ConfirmationObject!
+	unarchiveCard(id: UUID!): CardObject!
 	updateBoard(id: UUID!, params: BoardParams!): BoardObject!
 	updateCard(id: UUID!, params: CardParams!): CardObject!
 	updateCardList(id: UUID!, listId: UUID!, position: Int!): CardObject!
@@ -743,6 +753,7 @@ input UpdateLabelParams {
 
 input UpdateListParams {
 	name: String!
+	archiveCards: Boolean! = false
 }
 
 input UpdateMemberParams {

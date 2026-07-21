@@ -1,0 +1,5 @@
+mutation UnarchiveCard($id: UUID!) {
+    unarchiveCard(id: $id) {
+        id
+    }
+}

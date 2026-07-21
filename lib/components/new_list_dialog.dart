@@ -31,11 +31,15 @@ class _NewListForm extends StatefulWidget {
 class _NewListFormState extends State<_NewListForm> {
   final _formNewList = GlobalKey<FormState>();
 
-  Future<QueryResult<Mutation$CreateList>> _attemptToCreateList(BuildContext context, String name) async {
+  Future<QueryResult<Mutation$CreateList>> _attemptToCreateList(
+    BuildContext context,
+    String name,
+    bool archiveCards,
+  ) async {
     final result = await context.graphQLClient.mutate$CreateList(
       Options$Mutation$CreateList(
         variables: Variables$Mutation$CreateList(
-          params: Input$ListParams(boardId: widget.boardId, name: name),
+          params: Input$ListParams(boardId: widget.boardId, name: name, archiveCards: archiveCards),
         ),
       ),
     );
@@ -53,6 +57,9 @@ class _NewListFormState extends State<_NewListForm> {
 
   @override
   Widget build(BuildContext context) {
-    return ListForm(formKey: _formNewList, onSubmit: (name) => _attemptToCreateList(context, name));
+    return ListForm(
+      formKey: _formNewList,
+      onSubmit: (name, archiveCards) => _attemptToCreateList(context, name, archiveCards),
+    );
   }
 }

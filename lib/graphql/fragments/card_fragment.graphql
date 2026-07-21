@@ -1,6 +1,10 @@
 fragment CardFragment on CardObject {
     id
     position
+    isArchivable
+    isArchived
+    isUnarchivable
+    isDeletable
     isEditable
     isMovable
     board {

@@ -27,12 +27,16 @@ class _EditListForm extends StatelessWidget {
 
   final _formEditList = GlobalKey<FormState>();
 
-  Future<QueryResult<Mutation$UpdateList>> _attemptToUpdateList(BuildContext context, String name) async {
+  Future<QueryResult<Mutation$UpdateList>> _attemptToUpdateList(
+    BuildContext context,
+    String name,
+    bool archiveCards,
+  ) async {
     final result = await context.graphQLClient.mutate$UpdateList(
       Options$Mutation$UpdateList(
         variables: Variables$Mutation$UpdateList(
           id: list.id,
-          params: Input$UpdateListParams(name: name),
+          params: Input$UpdateListParams(name: name, archiveCards: archiveCards),
         ),
       ),
     );
@@ -53,7 +57,7 @@ class _EditListForm extends StatelessWidget {
     return ListForm(
       formKey: _formEditList,
       initialValues: list,
-      onSubmit: (name) => _attemptToUpdateList(context, name),
+      onSubmit: (name, archiveCards) => _attemptToUpdateList(context, name, archiveCards),
     );
   }
 }

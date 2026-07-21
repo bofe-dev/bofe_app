@@ -1,18 +1,18 @@
 import 'dart:async';
 
-import 'package:bofe/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../build_context.dart';
+import '../constants.dart';
 import '../graphql/fragments/card_item_fragment.graphql.dart';
 import '../graphql/mutations/update_card_list.graphql.dart';
 import '../graphql/mutations/update_card_position.graphql.dart';
-import 'card_popup_menu_button.dart';
+import 'card_menu_anchor.dart';
+import 'card_metadata.dart';
 import 'label_chip.dart';
 import 'loading_overlay.dart';
 import 'snack_bar_alert.dart';
-import 'user_item.dart';
 
 class DraggableCardItem extends StatefulWidget {
   const DraggableCardItem({super.key, required this.card, required this.onDragOutside, required this.onDragEnded});
@@ -98,9 +98,10 @@ class _DraggableCardItemState extends State<DraggableCardItem> {
 }
 
 class CardItem extends StatelessWidget {
-  const CardItem({super.key, required this.card, this.showPopupMenu = true, this.onTap});
+  const CardItem({super.key, required this.card, this.showListName = false, this.showPopupMenu = true, this.onTap});
 
   final Fragment$CardItemFragment card;
+  final bool showListName;
   final bool showPopupMenu;
   final Function()? onTap;
 
@@ -140,9 +141,12 @@ class CardItem extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    spacing: 6,
                     children: [
-                      UserItem(user: card.user),
-                      if (showPopupMenu && card.isEditable) CardPopupMenuButton(card: card, iconSize: 20),
+                      CardMetadata(card: card, showListName: showListName),
+                      if (showPopupMenu &&
+                          (card.isDeletable || card.isEditable || card.isArchivable || card.isUnarchivable))
+                        CardMenuAnchor(card: card, iconSize: 20),
                     ],
                   ),
                   Text(card.content, maxLines: 3, overflow: TextOverflow.fade, style: TextStyle(fontSize: 16)),

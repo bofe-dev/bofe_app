@@ -28,6 +28,12 @@
       src="https://img.shields.io/github/v/release/javierEd/bofe_app?include_prereleases&logo=rocket&logoColor=white&style=flat-square"
       alt="release"
     /></a>
+  <a href="https://play.google.com/store/apps/details?id=app.bofe">
+    <img
+      src="https://img.shields.io/badge/Google%20Play-34A853?style=flat-square&logo=google-play&logoColor=white"
+      alt="Google Play"
+    />
+  </a>
 </p>
 
 With **Bofe** you can easily build kanban style boards for your projects, personal workflows, or just for fun.

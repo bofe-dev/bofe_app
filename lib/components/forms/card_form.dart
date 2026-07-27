@@ -99,7 +99,7 @@ class _CardFormState<T> extends State<CardForm<T>> {
             required: true,
             filterFn: (option, filter) => option.name.toLowerCase().contains(filter.toLowerCase()),
             optionBuilder: (item) => Text(item.name),
-            options: result.parsedData?.board?.allLists.where((list) => list.canMoveCard).toList() ?? [],
+            options: (_) => result.parsedData?.board?.allLists.where((list) => list.canMoveCard).toList() ?? [],
             onSaved: (list) {
               setState(() {
                 _list = list;
@@ -146,7 +146,7 @@ class _CardFormState<T> extends State<CardForm<T>> {
             errorText: _errorLabels,
             initialValue: _labels,
             filterFn: (option, filter) => option.name.toLowerCase().contains(filter.toLowerCase()),
-            options: result.parsedData?.board?.allLabels ?? [],
+            options: (_) => result.parsedData?.board?.allLabels ?? [],
             optionBuilder: (option) => LabelChip(label: option),
             onSaved: (values) {
               setState(() {

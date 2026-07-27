@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../build_context.dart';
 import '../components/loading_overlay.dart';
 import '../graphql/fragments/board_fragment.graphql.dart';
+import '../graphql/fragments/label_fragment.graphql.dart';
 import '../graphql/fragments/list_with_cards_fragment.graphql.dart';
 import '../graphql/mutations/delete_list.graphql.dart';
 import '../graphql/mutations/update_list_position.graphql.dart';
@@ -19,6 +20,7 @@ class DraggableListItem extends StatefulWidget {
     super.key,
     required this.board,
     required this.list,
+    required this.labels,
     required this.isDraggingCard,
     required this.onDragOutside,
     required this.onDragEnded,
@@ -28,6 +30,7 @@ class DraggableListItem extends StatefulWidget {
 
   final Fragment$BoardFragment board;
   final Fragment$ListWithCardsFragment list;
+  final List<Fragment$LabelFragment> labels;
   final bool isDraggingCard;
   final Function() onDragOutside;
   final Function() onDragEnded;
@@ -70,6 +73,7 @@ class _DraggableListItemState extends State<DraggableListItem> {
               key: ValueKey(widget.list.id),
               board: widget.board,
               list: widget.list,
+              labels: widget.labels,
               isDraggingCard: false,
             ),
           ),
@@ -112,6 +116,7 @@ class _DraggableListItemState extends State<DraggableListItem> {
           key: ValueKey(widget.list.id),
           board: widget.board,
           list: widget.list,
+          labels: widget.labels,
           isDraggingCard: widget.isDraggingCard,
           onCardDragOutside: widget.onCardDragOutside,
           onCardDragEnded: widget.onCardDragEnded,
@@ -126,6 +131,7 @@ class ListItem extends StatefulWidget {
     super.key,
     required this.board,
     required this.list,
+    required this.labels,
     required this.isDraggingCard,
     this.onCardDragOutside,
     this.onCardDragEnded,
@@ -133,6 +139,7 @@ class ListItem extends StatefulWidget {
 
   final Fragment$BoardFragment board;
   final Fragment$ListWithCardsFragment list;
+  final List<Fragment$LabelFragment> labels;
   final bool isDraggingCard;
   final Function()? onCardDragOutside;
   final Function()? onCardDragEnded;
@@ -302,6 +309,13 @@ class _ListItemState extends State<ListItem> {
                     spacing: 8,
                     children:
                         widget.list.allCards
+                            .where(
+                              (card) =>
+                                  widget.labels.isEmpty ||
+                                  widget.labels.every(
+                                    (label) => card.allLabels.map((label) => label.id).contains(label.id),
+                                  ),
+                            )
                             .map(
                               (card) => card.isMovable
                                   ? [

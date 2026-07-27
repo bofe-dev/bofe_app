@@ -126,7 +126,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       errorText: _errorLanguage,
                       required: true,
                       initialValue: parsedData.currentUser?.languageCode,
-                      options: Enum$LanguageCode.values.where((code) => code != Enum$LanguageCode.$unknown).toList(),
+                      options: (_) =>
+                          Enum$LanguageCode.values.where((code) => code != Enum$LanguageCode.$unknown).toList(),
                       optionBuilder: (code) => Text(context.l10n.languages(code.name.toLowerCase())),
                       onSaved: (value) => _languageCode = value,
                     ),

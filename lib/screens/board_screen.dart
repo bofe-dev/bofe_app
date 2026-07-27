@@ -5,13 +5,17 @@ import 'package:share_plus/share_plus.dart';
 import '../build_context.dart';
 import '../components.dart';
 import '../components/board_context.dart';
+import '../components/dialogs/select_dialog.dart';
+import '../components/label_chip.dart';
 import '../components/list_item.dart';
 import '../components/loading_overlay.dart';
 import '../components/new_list_dialog.dart';
 import '../components/screen_title.dart';
 import '../config.dart';
 import '../graphql/fragments/board_fragment.graphql.dart';
+import '../graphql/fragments/label_fragment.graphql.dart';
 import '../graphql/mutations/delete_board.graphql.dart';
+import '../graphql/queries/board_labels.graphql.dart';
 import '../graphql/subscriptions/board.graphql.dart';
 import '../screens/not_found_screen.dart';
 import '../value_keys.dart';
@@ -33,6 +37,7 @@ class _BoardScreenState extends State<BoardScreen> {
   bool _isAnimating = false;
   final _pixelsPerSecond = 250.0;
   final _edgeThreshold = 50;
+  List<Fragment$LabelFragment> _labels = [];
 
   Future<void> _attemptToDeleteBoard(String id) async {
     final loadingOverlay = showLoadingOverlay(context);
@@ -58,25 +63,51 @@ class _BoardScreenState extends State<BoardScreen> {
   List<Widget> _getActions(Fragment$BoardFragment board) {
     return [
       IconButton(
+        onPressed: () async {
+          final labels = await showSelectDialog<Fragment$LabelFragment>(
+            context,
+            options: (_) async {
+              return (await context.graphQLClient.query$BoardLabels(
+                    Options$Query$BoardLabels(variables: Variables$Query$BoardLabels(id: board.id)),
+                  )).parsedData?.board?.allLabels ??
+                  [];
+            },
+            selected: _labels,
+            filterFn: (option, filter) => option.name.toLowerCase().contains(filter.toLowerCase()),
+            optionBuilder: (option) => LabelChip(label: option),
+            isMulti: true,
+            searchDelay: const Duration(seconds: 500),
+          );
+
+          if (labels != null) {
+            setState(() {
+              _labels = labels;
+            });
+          }
+        },
+        tooltip: context.l10n.filter,
+        icon: Icon(Icons.filter_alt_rounded),
+      ),
+      IconButton(
         onPressed: () {
           SharePlus.instance.share(ShareParams(uri: Config.appUrl.replace(path: '/${widget.username}/${widget.slug}')));
         },
         tooltip: context.l10n.share,
         icon: Icon(Icons.share_rounded),
       ),
-      IconButton(
-        onPressed: () => context.router.pushToMembers(board),
-        tooltip: 'Members',
-        icon: Icon(Icons.groups_3_rounded),
-      ),
-      if (board.isEditable)
-        MenuAnchor(
-          builder: (context, controller, child) => IconButton(
-            onPressed: () => controller.isOpen ? controller.close() : controller.open(),
-            icon: const Icon(Icons.more_vert_rounded),
-            tooltip: context.l10n.more,
+      MenuAnchor(
+        builder: (context, controller, child) => IconButton(
+          onPressed: () => controller.isOpen ? controller.close() : controller.open(),
+          icon: const Icon(Icons.more_vert_rounded),
+          tooltip: context.l10n.more,
+        ),
+        menuChildren: [
+          MenuItemButton(
+            onPressed: () => context.router.pushToMembers(board),
+            leadingIcon: Icon(Icons.groups_3_rounded),
+            child: Text(context.l10n.members),
           ),
-          menuChildren: [
+          if (board.isEditable) ...[
             MenuItemButton(
               onPressed: () => showEditBoardDialog(context, board: board),
               leadingIcon: const Icon(Icons.edit_rounded),
@@ -109,7 +140,8 @@ class _BoardScreenState extends State<BoardScreen> {
               child: Text(context.l10n.delete),
             ),
           ],
-        ),
+        ],
+      ),
     ];
   }
 
@@ -228,6 +260,7 @@ class _BoardScreenState extends State<BoardScreen> {
                                               DraggableListItem(
                                                 board: board,
                                                 list: list,
+                                                labels: _labels,
                                                 isDraggingCard: _isDraggingCard,
                                                 onDragOutside: () {
                                                   setState(() {
@@ -256,6 +289,7 @@ class _BoardScreenState extends State<BoardScreen> {
                                                 key: ValueKey(list.id),
                                                 board: board,
                                                 list: list,
+                                                labels: _labels,
                                                 isDraggingCard: _isDraggingCard,
                                                 onCardDragOutside: () {
                                                   setState(() {

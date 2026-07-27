@@ -42,7 +42,7 @@ class CountryField extends StatelessWidget {
           ],
         );
       },
-      options: Enum$CountryCode.values
+      options: (_) => Enum$CountryCode.values
           .map((code) => (code, WorldInfoPlus.getCountryByAlpha2(code.name)))
           .whereType<(Enum$CountryCode, Country)>()
           .where((item) => item.$1 != Enum$CountryCode.$unknown)

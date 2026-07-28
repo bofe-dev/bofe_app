@@ -5,9 +5,11 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import '../../build_context.dart';
 import '../../components.dart';
 import '../../components/screen_title.dart';
+import '../../graphql/fragments/attachment_fragment.graphql.dart';
 import '../../graphql/mutations/update_profile.graphql.dart';
 import '../../graphql/queries/current_user_profile.graphql.dart';
 import '../../graphql/schema.graphql.dart';
+import '../../graphql_client.dart';
 import '../not_found_screen.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -25,11 +27,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   DateTime? _birthdate;
   Enum$LanguageCode? _languageCode;
   Enum$CountryCode? _countryCode;
+  Fragment$AttachmentFragment? _avatarImageAttachment;
   String? _errorDisplayName;
   String? _errorFullName;
   String? _errorBirthdate;
   String? _errorLanguage;
   String? _errorCountryCode;
+  String? _errorAvatarImageAttachment;
 
   Future<String?> _attemptToUpdateProfile() async {
     final result = await context.graphQLClient.mutate$UpdateProfile(
@@ -41,6 +45,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             birthdate: _birthdate!,
             languageCode: _languageCode,
             countryCode: _countryCode!,
+            avatarImageAttachmentId: _avatarImageAttachment?.id,
           ),
         ),
       ),
@@ -54,17 +59,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       showSnackBarAlert(context, 'Profile updated successfully');
       context.pop();
     } else {
-      final errors = result.exception?.graphqlErrors.first;
-
       setState(() {
-        _errorDisplayName = errors?.extensions?['params']['displayName']?['message'];
-        _errorFullName = errors?.extensions?['params']['fullName']?['message'];
-        _errorBirthdate = errors?.extensions?['params']['birthdate']?['message'];
-        _errorLanguage = errors?.extensions?['params']['languageCode']?['message'];
-        _errorCountryCode = errors?.extensions?['params']['countryCode']?['message'];
+        _errorDisplayName = result.getParamError('displayName');
+        _errorFullName = result.getParamError('fullName');
+        _errorBirthdate = result.getParamError('birthdate');
+        _errorLanguage = result.getParamError('languageCode');
+        _errorCountryCode = result.getParamError('countryCode');
+        _errorAvatarImageAttachment = result.getParamError('avatarImageAttachmentId');
       });
 
-      return errors?.message ?? 'Failed to update profile';
+      return result.errorMessage ?? 'Failed to update profile';
     }
 
     return null;
@@ -136,6 +140,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       required: true,
                       initialValue: parsedData.currentUser?.countryCode,
                       onSaved: (value) => _countryCode = value,
+                    ),
+                    ImagePickerField(
+                      labelText: context.l10n.avatarImage,
+                      errorText: _errorAvatarImageAttachment,
+                      initialValue: parsedData.currentUser?.avatarImageAttachment,
+                      onSaved: (value) {
+                        setState(() {
+                          _avatarImageAttachment = value;
+                        });
+                      },
                     ),
                   ],
                 ),

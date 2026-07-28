@@ -51,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                 icon: Icon(Icons.add),
                 onPressed: () => context.goNamed(routeNameNewBoard),
               ),
+            SizedBox(width: 8),
             AccountButton(),
           ],
         ),

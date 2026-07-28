@@ -12,8 +12,13 @@ class UserAvatarImage extends CircleAvatar {
           borderRadius: BorderRadius.circular(size),
           child: CachedNetworkImage(
             useOldImageOnUrlChange: true,
-            imageUrl: user.avatarImageUrl.replace(queryParameters: {'size': '128'}).toString(),
-            placeholder: (context, url) => Text(user.initials, style: TextStyle(fontSize: size)),
+            imageUrl: user.avatarImageUrl.toString(),
+            placeholder: (context, url) => Center(
+              child: Text(user.initials, style: TextStyle(fontSize: size)),
+            ),
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
           ),
         ),
       );

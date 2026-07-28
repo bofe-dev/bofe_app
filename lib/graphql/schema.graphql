@@ -771,6 +771,7 @@ input UpdateProfileParams {
 	birthdate: NaiveDate!
 	languageCode: LanguageCode
 	countryCode: CountryCode!
+	avatarImageAttachmentId: UUID
 }
 
 """
@@ -794,7 +795,8 @@ type UserObject {
 	birthdate: NaiveDate!
 	languageCode: LanguageCode!
 	countryCode: CountryCode!
-	avatarImageUrl: Url!
+	avatarImageUrl(size: Int! = 256): Url!
+	avatarImageAttachment: AttachmentObject
 	boardBySlug(slug: String!): BoardObject
 	boards(after: UUID, first: Int): BoardObjectConnection!
 	createdAt: DateTime!

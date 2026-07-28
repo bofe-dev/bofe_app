@@ -76,7 +76,6 @@ class _BoardScreenState extends State<BoardScreen> {
             filterFn: (option, filter) => option.name.toLowerCase().contains(filter.toLowerCase()),
             optionBuilder: (option) => LabelChip(label: option),
             isMulti: true,
-            searchDelay: const Duration(seconds: 500),
           );
 
           if (labels != null) {

@@ -109,8 +109,9 @@ class AccountButton extends StatelessWidget {
       builder: (user) {
         if (user != null) {
           return IconButton(
+            padding: EdgeInsets.all(2),
             onPressed: () => _showAccountDialog(context, user: user),
-            icon: UserAvatarImage(user: user),
+            icon: UserAvatarImage(user: user, size: 18),
           );
         } else {
           return IconButton.outlined(

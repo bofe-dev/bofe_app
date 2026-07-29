@@ -3,29 +3,29 @@
 <p align="center">Kanban style boards.</p>
 
 <p align="center">
-  <a href="https://github.com/javierEd/bofe_app/blob/main/LICENSE">
+  <a href="https://github.com/bofe-dev/bofe_app/blob/main/LICENSE">
     <img
-      src="https://img.shields.io/github/license/javierEd/bofe_app?logo=open-source-initiative&logoColor=white&style=flat-square"
+      src="https://img.shields.io/github/license/bofe-dev/bofe_app?logo=open-source-initiative&logoColor=white&style=flat-square"
       alt="license"
     /></a>
-  <a href="https://github.com/javierEd/bofe_app/commits/main">
+  <a href="https://github.com/bofe-dev/bofe_app/commits/main">
     <img
-      src="https://img.shields.io/github/last-commit/javierEd/bofe_app?logo=git&logoColor=white&style=flat-square"
+      src="https://img.shields.io/github/last-commit/bofe-dev/bofe_app?logo=git&logoColor=white&style=flat-square"
       alt="last commit"
     /></a>
-  <a href="https://github.com/javierEd/bofe_app/actions/workflows/ci.yaml">
+  <a href="https://github.com/bofe-dev/bofe_app/actions/workflows/ci.yaml">
     <img
-      src="https://img.shields.io/github/actions/workflow/status/javierEd/bofe_app/ci.yaml?label=CI&logo=github&style=flat-square"
+      src="https://img.shields.io/github/actions/workflow/status/bofe-dev/bofe_app/ci.yaml?label=CI&logo=github&style=flat-square"
       alt="CI"
     /></a>
-  <a href="https://github.com/javierEd/bofe_app/actions/workflows/cd.yaml">
+  <a href="https://github.com/bofe-dev/bofe_app/actions/workflows/cd.yaml">
     <img
-      src="https://img.shields.io/github/actions/workflow/status/javierEd/bofe_app/cd.yaml?label=CD&logo=github&style=flat-square"
+      src="https://img.shields.io/github/actions/workflow/status/bofe-dev/bofe_app/cd.yaml?label=CD&logo=github&style=flat-square"
       alt="CD"
     /></a>
-  <a href="https://github.com/javierEd/bofe_app/releases/latest">
+  <a href="https://github.com/bofe-dev/bofe_app/releases/latest">
     <img
-      src="https://img.shields.io/github/v/release/javierEd/bofe_app?include_prereleases&logo=rocket&logoColor=white&style=flat-square"
+      src="https://img.shields.io/github/v/release/bofe-dev/bofe_app?include_prereleases&logo=rocket&logoColor=white&style=flat-square"
       alt="release"
     /></a>
   <a href="https://play.google.com/store/apps/details?id=app.bofe">
@@ -40,7 +40,7 @@ With **Bofe** you can easily build kanban style boards for your projects, person
 
 > [!NOTE]
 > This repository contains the frontend (mobile/web) application of the project.
-> - To see the backend, go to [github.com/javierEd/bofe](https://github.com/javierEd/bofe).
+> - To see the backend, go to [github.com/bofe-dev/bofe](https://github.com/bofe-dev/bofe).
 
 ## Features
 
@@ -66,4 +66,4 @@ With **Bofe** you can easily build kanban style boards for your projects, person
 
 ## License
 
-This project is open-source and available under the GNU Affero General Public License v3.0 (AGPL v3). Please see the [LICENSE](https://github.com/javierEd/bofe_app/blob/main/LICENSE) file for more details.
+This project is open-source and available under the GNU Affero General Public License v3.0 (AGPL v3). Please see the [LICENSE](https://github.com/bofe-dev/bofe_app/blob/main/LICENSE) file for more details.

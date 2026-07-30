@@ -79,6 +79,7 @@ enum BlobFileType {
 type BoardObject {
 	id: ID!
 	user: UserObject!
+	backgroundImageAttachment: AttachmentObject
 	lastActivity: ActivityObject
 	name: String!
 	slug: String!
@@ -130,6 +131,7 @@ type BoardObjectEdge {
 }
 
 input BoardParams {
+	backgroundImageAttachmentId: UUID
 	name: String!
 	slug: String!
 	description: String!

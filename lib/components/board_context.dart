@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../components/query_result_builder.dart';
 import '../constants.dart';
-import '../graphql/fragments/board_fragment.graphql.dart';
+import '../graphql/fragments/board_context_fragment.graphql.dart';
 import '../graphql/queries/user_board_by_slug.graphql.dart';
 import '../screens/not_found_screen.dart';
 import '../value_keys.dart';
@@ -13,7 +13,7 @@ class BoardContext extends Query$UserBoardBySlug$Widget {
     super.key,
     required String username,
     required String slug,
-    required Widget Function(Fragment$BoardFragment board) builder,
+    required Widget Function(Fragment$BoardContextFragment board) builder,
   }) : super(
          options: Options$Query$UserBoardBySlug(
            variables: Variables$Query$UserBoardBySlug(username: username, slug: slug),
@@ -31,7 +31,7 @@ class BoardContext extends Query$UserBoardBySlug$Widget {
 class BoardContextDialogPage extends DialogPage {
   BoardContextDialogPage({
     required Map<String, String> pathParameters,
-    required Widget Function(Fragment$BoardFragment board) builder,
+    required Widget Function(Fragment$BoardContextFragment board) builder,
   }) : super(
          barrierDismissible: false,
          builder: (context) => BoardContext(

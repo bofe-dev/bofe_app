@@ -1,7 +1,7 @@
 query Boards($after: UUID, $first: Int) {
     boards(after: $after, first: $first) {
         nodes {
-            ...BoardFragment
+            ...BoardItemFragment
         }
         pageInfo {
             endCursor

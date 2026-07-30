@@ -3,7 +3,7 @@ query CurrentUserBoards($after: UUID, $first: Int) {
         id
         boards(after: $after, first: $first) {
             nodes {
-                ...BoardFragment
+                ...BoardItemFragment
             }
             pageInfo {
                 endCursor

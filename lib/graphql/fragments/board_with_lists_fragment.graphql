@@ -1,5 +1,10 @@
 fragment BoardWithListsFragment on BoardObject {
     ...BoardFragment
+    backgroundImageAttachment {
+        id
+        url
+        createdAt
+    }
     allLists {
         ...ListWithCardsFragment
     }

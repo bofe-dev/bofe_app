@@ -1,0 +1,6 @@
+fragment BoardContextFragment on BoardObject {
+    ...BoardFragment
+    backgroundImageAttachment {
+        ...AttachmentFragment
+    }
+}

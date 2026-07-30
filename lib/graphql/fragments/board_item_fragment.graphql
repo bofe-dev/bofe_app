@@ -1,0 +1,8 @@
+fragment BoardItemFragment on BoardObject {
+    ...BoardFragment
+    backgroundImageAttachment {
+        id
+        thumbnailUrl(width: 512, height: 512)
+        createdAt
+    }
+}

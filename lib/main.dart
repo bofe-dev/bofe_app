@@ -60,6 +60,7 @@ class App extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
         backgroundColor: colorSeed,
+        foregroundColor: Colors.white,
         shape: roundedRectangleBorder,
       ),
     ),

@@ -4,12 +4,12 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../build_context.dart';
 import '../../graphql/schema.graphql.dart';
-import '../../graphql/fragments/board_fragment.graphql.dart';
+import '../../graphql/fragments/board_context_fragment.graphql.dart';
 import '../../graphql/mutations/update_board.graphql.dart';
 import '../forms/board_form.dart';
 import '../snack_bar_alert.dart';
 
-Future<dynamic> showEditBoardDialog(BuildContext context, {required Fragment$BoardFragment board}) {
+Future<dynamic> showEditBoardDialog(BuildContext context, {required Fragment$BoardContextFragment board}) {
   return showDialog(
     context: context,
     builder: (context) {
@@ -24,7 +24,7 @@ Future<dynamic> showEditBoardDialog(BuildContext context, {required Fragment$Boa
 class _EditBoardForm extends StatelessWidget {
   _EditBoardForm({required this.board});
 
-  final Fragment$BoardFragment board;
+  final Fragment$BoardContextFragment board;
 
   final _formEditBoard = GlobalKey<FormState>();
 

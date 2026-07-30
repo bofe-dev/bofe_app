@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../../graphql/fragments/board_fragment.graphql.dart';
+import '../../build_context.dart';
+import '../../graphql/fragments/attachment_fragment.graphql.dart';
+import '../../graphql/fragments/board_context_fragment.graphql.dart';
 import '../../graphql/schema.graphql.dart';
 import '../../graphql_client.dart';
 import 'form_container.dart';
+import 'image_picker_field.dart';
 import 'text_input_field.dart';
 import '../dropdown_field.dart';
 
@@ -12,7 +15,7 @@ class BoardForm<T> extends StatefulWidget {
   const BoardForm({super.key, required this.formKey, this.initialValues, required this.onSubmit});
 
   final GlobalKey<FormState> formKey;
-  final Fragment$BoardFragment? initialValues;
+  final Fragment$BoardContextFragment? initialValues;
   final Future<QueryResult<T>> Function(Input$BoardParams params) onSubmit;
 
   @override
@@ -24,9 +27,11 @@ class _BoardFormState<T> extends State<BoardForm<T>> {
 
   String _name = '';
   String _description = '';
+  Fragment$AttachmentFragment? _backgroundImageAttachment;
   Enum$BoardVisibility _visibility = Enum$BoardVisibility.PRIVATE;
   String? _errorName;
   String? _errorSlug;
+  String? _errorBackgroundImageAttachment;
 
   @override
   void initState() {
@@ -35,6 +40,7 @@ class _BoardFormState<T> extends State<BoardForm<T>> {
       _name = widget.initialValues!.name;
       _slugController.text = widget.initialValues!.slug;
       _description = widget.initialValues!.description;
+      _backgroundImageAttachment = widget.initialValues!.backgroundImageAttachment;
       _visibility = widget.initialValues!.visibility;
     }
   }
@@ -49,6 +55,7 @@ class _BoardFormState<T> extends State<BoardForm<T>> {
             name: _name,
             slug: _slugController.text,
             description: _description,
+            backgroundImageAttachmentId: _backgroundImageAttachment?.id,
             visibility: _visibility,
           ),
         );
@@ -57,6 +64,7 @@ class _BoardFormState<T> extends State<BoardForm<T>> {
           setState(() {
             _errorName = result.getParamError('name');
             _errorSlug = result.getParamError('slug');
+            _errorBackgroundImageAttachment = result.getParamError('backgroundImageAttachmentId');
           });
 
           return result.errorMessage;
@@ -96,6 +104,16 @@ class _BoardFormState<T> extends State<BoardForm<T>> {
           keyboardType: TextInputType.multiline,
           onSaved: (value) {
             _description = value ?? '';
+          },
+        ),
+        ImagePickerField(
+          labelText: context.l10n.backgroundImage,
+          errorText: _errorBackgroundImageAttachment,
+          initialValue: _backgroundImageAttachment,
+          onSaved: (value) {
+            setState(() {
+              _backgroundImageAttachment = value;
+            });
           },
         ),
         DropdownField(

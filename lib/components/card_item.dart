@@ -57,7 +57,7 @@ class _DraggableCardItemState extends State<DraggableCardItem> {
       childWhenDragging: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         height: _isOutside ? 0 : _cardItemSize?.height,
-        decoration: BoxDecoration(color: Colors.grey.withAlpha(128), borderRadius: BorderRadius.circular(16)),
+        decoration: BoxDecoration(color: Colors.grey.withAlpha(192), borderRadius: BorderRadius.circular(16)),
       ),
       onDragUpdate: (details) {
         final currentOffset = details.globalPosition;
@@ -108,59 +108,67 @@ class CardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return InkWell(
-      borderRadius: borderRadius,
-      onTap: onTap ?? () => context.router.pushToCard(card),
-      child: Container(
-        width: 320,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          color: colorScheme.onInverseSurface,
-          borderRadius: borderRadius,
-        ),
-        child: Column(
-          spacing: 6,
-          children: [
-            if (card.coverImageAttachment?.thumbnailUrl != null)
-              ClipRRect(
-                borderRadius: BorderRadius.only(topLeft: borderRadius.topLeft, topRight: borderRadius.topRight),
-                child: CachedNetworkImage(
-                  useOldImageOnUrlChange: true,
-                  imageUrl: card.coverImageAttachment!.thumbnailUrl.toString(),
-                  width: 320,
-                  height: 100,
-                  fit: BoxFit.cover,
+    return Container(
+      width: 320,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        color: colorScheme.onInverseSurface,
+        borderRadius: borderRadius,
+      ),
+      child: Stack(
+        children: [
+          Column(
+            spacing: 6,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (card.coverImageAttachment?.thumbnailUrl != null)
+                ClipRRect(
+                  borderRadius: BorderRadius.only(topLeft: borderRadius.topLeft, topRight: borderRadius.topRight),
+                  child: CachedNetworkImage(
+                    useOldImageOnUrlChange: true,
+                    imageUrl: card.coverImageAttachment!.thumbnailUrl.toString(),
+                    width: 320,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  spacing: 6,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      spacing: 6,
+                      children: [
+                        CardMetadata(card: card, showListName: showListName),
+                        CardMenuAnchor(card: card, iconSize: 20),
+                      ],
+                    ),
+                    Text(card.content, maxLines: 3, overflow: TextOverflow.fade, style: TextStyle(fontSize: 16)),
+                    if (card.attachmentsCount > 0)
+                      Row(
+                        spacing: 2,
+                        children: [Text(card.attachmentsCount.toString()), Icon(Icons.attach_file_rounded, size: 16)],
+                      ),
+                    Wrap(
+                      spacing: 4,
+                      runSpacing: 4,
+                      children: card.allLabels.map((label) => LabelChip(label: label)).toList(),
+                    ),
+                  ],
                 ),
               ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                spacing: 6,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    spacing: 6,
-                    children: [
-                      CardMetadata(card: card, showListName: showListName),
-                      CardMenuAnchor(card: card, iconSize: 20),
-                    ],
-                  ),
-                  Text(card.content, maxLines: 3, overflow: TextOverflow.fade, style: TextStyle(fontSize: 16)),
-                  if (card.attachmentsCount > 0)
-                    Row(
-                      spacing: 2,
-                      children: [Text(card.attachmentsCount.toString()), Icon(Icons.attach_file_rounded, size: 16)],
-                    ),
-                  Wrap(
-                    spacing: 4,
-                    runSpacing: 4,
-                    children: card.allLabels.map((label) => LabelChip(label: label)).toList(),
-                  ),
-                ],
-              ),
+            ],
+          ),
+          Positioned.fill(
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(borderRadius: borderRadius, onTap: onTap ?? () => context.router.pushToCard(card)),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -231,7 +239,7 @@ class CardItemDragTarget extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 6),
             height: accepted.isNotEmpty ? 92 : 12,
             decoration: BoxDecoration(
-              color: accepted.isNotEmpty ? Colors.grey.withAlpha(128) : Colors.grey.withAlpha(64),
+              color: accepted.isNotEmpty ? Colors.grey.withAlpha(192) : Colors.grey.withAlpha(128),
               borderRadius: BorderRadius.circular(16),
             ),
           );

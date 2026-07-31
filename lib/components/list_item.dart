@@ -82,7 +82,7 @@ class _DraggableListItemState extends State<DraggableListItem> {
       childWhenDragging: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         width: _isOutside ? 0 : _listItemSize?.width,
-        decoration: BoxDecoration(color: Colors.grey.withAlpha(128), borderRadius: BorderRadius.circular(16)),
+        decoration: BoxDecoration(color: Colors.grey.withAlpha(192), borderRadius: BorderRadius.circular(16)),
       ),
       onDragUpdate: (details) {
         final currentX = details.globalPosition.dx;
@@ -395,7 +395,7 @@ class ListItemDragTarget extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 12),
             width: accepted.isNotEmpty ? 344 : 16,
             decoration: BoxDecoration(
-              color: accepted.isNotEmpty ? Colors.grey.withAlpha(128) : Colors.grey.withAlpha(64),
+              color: accepted.isNotEmpty ? Colors.grey.withAlpha(192) : Colors.grey.withAlpha(128),
               borderRadius: BorderRadius.circular(16),
             ),
           );

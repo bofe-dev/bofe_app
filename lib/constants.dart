@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 const colorSeed = Color(0xFF1997a2);
 const colorTranslucent = Color(0x22000000);
 const borderRadius = BorderRadius.all(Radius.circular(16));
+const borderRadius12 = BorderRadius.all(Radius.circular(12));
 const roundedRectangleBorder = RoundedRectangleBorder(borderRadius: borderRadius);
 
 /// HTTP Headers

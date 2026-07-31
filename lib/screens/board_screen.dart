@@ -239,14 +239,12 @@ class _BoardScreenState extends State<BoardScreen> {
                     child: Stack(
                       children: [
                         if (board.backgroundImageAttachment != null)
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: CachedNetworkImage(
-                              imageUrl: board.backgroundImageAttachment!.url.toString(),
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: double.infinity,
-                            ),
+                          CachedNetworkImage(
+                            imageUrl: board.backgroundImageAttachment!.url.toString(),
+                            fit: BoxFit.cover,
+                            useOldImageOnUrlChange: true,
+                            width: double.infinity,
+                            height: double.infinity,
                           ),
                         SizedBox(
                           height: double.infinity,

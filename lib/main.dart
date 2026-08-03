@@ -54,7 +54,10 @@ class App extends StatelessWidget {
     colorScheme: ColorScheme.fromSeed(seedColor: colorSeed, brightness: brightness),
     useMaterial3: true,
     appBarTheme: const AppBarTheme(actionsPadding: EdgeInsets.only(right: 8)),
-    dialogTheme: const DialogThemeData(shape: roundedRectangleBorder),
+    dialogTheme: const DialogThemeData(
+      shape: roundedRectangleBorder,
+      insetPadding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+    ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         padding: const EdgeInsets.all(20),

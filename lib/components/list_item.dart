@@ -8,6 +8,7 @@ import '../build_context.dart';
 import '../components/loading_overlay.dart';
 import '../graphql/fragments/board_fragment.graphql.dart';
 import '../graphql/fragments/label_fragment.graphql.dart';
+import '../graphql/fragments/list_fragment.graphql.dart';
 import '../graphql/fragments/list_with_cards_fragment.graphql.dart';
 import '../graphql/mutations/delete_list.graphql.dart';
 import '../graphql/mutations/update_list_position.graphql.dart';
@@ -367,7 +368,23 @@ class _ListItemState extends State<ListItem> {
               width: double.infinity,
               child: FilledButton(
                 onPressed: () {
-                  showNewCardDialog(context, board: widget.board, list: widget.list);
+                  showNewCardDialog(
+                    context,
+                    board: widget.board,
+                    list: Fragment$ListFragment(
+                      id: widget.list.id,
+                      name: widget.list.name,
+                      position: widget.list.position,
+                      archiveCards: widget.list.archiveCards,
+                      canCreateCard: widget.list.canCreateCard,
+                      canMoveCard: widget.list.canMoveCard,
+                      isEditable: widget.list.isEditable,
+                      isMovable: widget.list.isMovable,
+                      createdAt: widget.list.createdAt,
+                      updatedAt: widget.list.updatedAt,
+                      $__typename: widget.list.$__typename,
+                    ),
+                  );
                 },
                 child: Text('NEW CARD'),
               ),

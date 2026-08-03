@@ -140,7 +140,14 @@ class _SelectDialogState<T> extends State<_SelectDialog<T>> {
                       spacing: 2,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        widget.optionBuilder(option),
+                        Expanded(
+                          child: DefaultTextStyle(
+                            style: Theme.of(context).textTheme.bodyMedium!,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            child: widget.optionBuilder(option),
+                          ),
+                        ),
                         IgnorePointer(child: Radio(value: option)),
                       ],
                     ),

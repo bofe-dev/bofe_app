@@ -1,10 +1,10 @@
 fragment EditCardFragment on CardObject {
     ...CardFragment
     coverImageAttachment {
-        ...AttachmentFragment
+        ...AttachmentThumbnailSmallFragment
     }
     content
     allAttachments {
-        ...AttachmentFragment
+        ...AttachmentThumbnailSmallFragment
     }
 }

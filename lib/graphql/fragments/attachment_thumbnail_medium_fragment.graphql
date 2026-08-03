@@ -1,0 +1,4 @@
+fragment AttachmentThumbnailMediumFragment on AttachmentObject {
+    ...AttachmentFragment
+    thumbnailUrl(width: 512, height: 512)
+}

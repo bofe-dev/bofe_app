@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../build_context.dart';
+import '../../components/cached_image_attachment.dart';
 import '../../components/card_menu_anchor.dart';
 import '../../components/card_metadata.dart';
 import '../../components/dialogs/card_attachment_dialog.dart';
@@ -46,12 +46,14 @@ class CardDialogScreen extends StatelessWidget {
                   if (card.coverImageAttachment?.thumbnailUrl != null)
                     ClipRRect(
                       borderRadius: BorderRadius.only(topLeft: borderRadius.topLeft, topRight: borderRadius.topRight),
-                      child: CachedNetworkImage(
-                        useOldImageOnUrlChange: true,
-                        imageUrl: card.coverImageAttachment!.thumbnailUrl.toString(),
-                        width: 640,
-                        height: 200,
-                        fit: BoxFit.cover,
+                      child: AspectRatio(
+                        aspectRatio: 16 / 5,
+                        child: CachedImageAttachment.thumbnailLarge(
+                          attachment: card.coverImageAttachment!,
+                          width: 640,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   Padding(

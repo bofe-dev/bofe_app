@@ -1,13 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../graphql/fragments/attachment_fragment.graphql.dart';
+import '../graphql/fragments/attachment_thumbnail_small_fragment.graphql.dart';
 import '../graphql/schema.graphql.dart';
+import 'cached_image_attachment.dart';
 
 class ThumbnailItem extends StatelessWidget {
   const ThumbnailItem({super.key, required this.attachment, this.size = 64});
 
-  final Fragment$AttachmentFragment attachment;
+  final Fragment$AttachmentThumbnailSmallFragment attachment;
   final double size;
 
   @override
@@ -35,12 +35,7 @@ class ThumbnailItem extends StatelessWidget {
     return (attachment.thumbnailUrl != null)
         ? Stack(
             children: [
-              CachedNetworkImage(
-                imageUrl: attachment.thumbnailUrl.toString(),
-                width: size,
-                height: size,
-                fit: BoxFit.cover,
-              ),
+              CachedImageAttachment.thumbnailSmall(attachment: attachment, width: size, height: size),
               Positioned(
                 bottom: 2,
                 right: 2,

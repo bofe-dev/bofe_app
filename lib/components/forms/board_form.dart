@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../build_context.dart';
-import '../../graphql/fragments/attachment_fragment.graphql.dart';
+import '../../graphql/fragments/attachment_thumbnail_small_fragment.graphql.dart';
 import '../../graphql/fragments/board_context_fragment.graphql.dart';
 import '../../graphql/schema.graphql.dart';
 import '../../graphql_client.dart';
@@ -27,7 +27,7 @@ class _BoardFormState<T> extends State<BoardForm<T>> {
 
   String _name = '';
   String _description = '';
-  Fragment$AttachmentFragment? _backgroundImageAttachment;
+  Fragment$AttachmentThumbnailSmallFragment? _backgroundImageAttachment;
   Enum$BoardVisibility _visibility = Enum$BoardVisibility.PRIVATE;
   String? _errorName;
   String? _errorSlug;

@@ -1,5 +1,5 @@
 mutation CreateAttachment($file: Upload!) {
     createAttachment(file: $file) {
-        ...AttachmentFragment
+        ...AttachmentThumbnailSmallFragment
     }
 }

@@ -104,7 +104,22 @@ class SelectField<T> extends StatelessWidget {
             suffixIcon: Icon(Icons.arrow_outward_rounded),
           ),
           child: state.value?.isNotEmpty == true
-              ? Wrap(spacing: 4, runSpacing: 4, children: state.value?.map(optionBuilder).toList() ?? [])
+              ? Wrap(
+                  spacing: 4,
+                  runSpacing: 4,
+                  children:
+                      state.value
+                          ?.map(
+                            (option) => DefaultTextStyle(
+                              style: Theme.of(context).textTheme.bodyMedium!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              child: optionBuilder(option),
+                            ),
+                          )
+                          .toList() ??
+                      [],
+                )
               : null,
         ),
       ),

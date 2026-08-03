@@ -63,7 +63,11 @@ class _CardAttachmentDialog extends StatelessWidget {
                 Enum$BlobFileType.IMAGE_JPEG ||
                 Enum$BlobFileType.IMAGE_PNG ||
                 Enum$BlobFileType.IMAGE_WEBP:
-              attachmentWidget = _ImageViewer(url: parsedData.card!.attachment!.url, onError: () => refetch?.call());
+              attachmentWidget = _ImageViewer(
+                id: parsedData.card!.attachment!.id,
+                url: parsedData.card!.attachment!.url,
+                onError: () => refetch?.call(),
+              );
               break;
             case Enum$BlobFileType.IMAGE_SVG_XML:
               attachmentWidget = SvgPicture.network(
@@ -101,8 +105,9 @@ class _CardAttachmentDialog extends StatelessWidget {
 }
 
 class _ImageViewer extends StatefulWidget {
-  const _ImageViewer({required this.url, required this.onError});
+  const _ImageViewer({required this.id, required this.url, required this.onError});
 
+  final String id;
   final Uri url;
   final Function() onError;
 
@@ -124,6 +129,7 @@ class _ImageViewerState extends State<_ImageViewer> {
       },
       progressIndicatorBuilder: (context, url, progress) => CircularProgressIndicator(value: progress.progress),
       imageUrl: widget.url.toString(),
+      cacheKey: 'attachment_${widget.id}',
     );
   }
 }

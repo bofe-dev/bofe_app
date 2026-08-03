@@ -1,0 +1,4 @@
+fragment AttachmentThumbnailLargeFragment on AttachmentObject {
+    ...AttachmentFragment
+    thumbnailUrl(width: 1024, height: 1024)
+}

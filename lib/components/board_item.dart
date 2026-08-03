@@ -1,10 +1,10 @@
 import 'package:bofe/build_context.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
 import '../graphql/schema.graphql.dart';
 import '../graphql/fragments/board_item_fragment.graphql.dart';
+import 'cached_image_attachment.dart';
 import 'user_item.dart';
 
 class BoardItem extends StatelessWidget {
@@ -40,10 +40,8 @@ class BoardItem extends StatelessWidget {
           if (board.backgroundImageAttachment != null)
             ClipRRect(
               borderRadius: borderRadius12,
-              child: CachedNetworkImage(
-                imageUrl: board.backgroundImageAttachment!.thumbnailUrl!.toString(),
-                useOldImageOnUrlChange: true,
-                fit: BoxFit.cover,
+              child: CachedImageAttachment.thumbnailMedium(
+                attachment: board.backgroundImageAttachment!,
                 width: double.infinity,
                 height: double.infinity,
               ),

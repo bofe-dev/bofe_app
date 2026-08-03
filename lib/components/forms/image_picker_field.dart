@@ -6,7 +6,7 @@ import 'package:http_parser/http_parser.dart' show MediaType;
 import '../../build_context.dart';
 import '../../config.dart';
 import '../../constants.dart';
-import '../../graphql/fragments/attachment_fragment.graphql.dart';
+import '../../graphql/fragments/attachment_thumbnail_small_fragment.graphql.dart';
 import '../../graphql/mutations/create_attachment.graphql.dart';
 import '../thumbnail_item.dart';
 
@@ -16,10 +16,10 @@ class ImagePickerField extends StatefulWidget {
     this.labelText,
     this.hintText,
     this.errorText,
-    Fragment$AttachmentFragment? initialValue,
+    Fragment$AttachmentThumbnailSmallFragment? initialValue,
     this.required = false,
-    FormFieldSetter<Fragment$AttachmentFragment>? onSaved,
-    FormFieldValidator<Fragment$AttachmentFragment>? validator,
+    FormFieldSetter<Fragment$AttachmentThumbnailSmallFragment>? onSaved,
+    FormFieldValidator<Fragment$AttachmentThumbnailSmallFragment>? validator,
   }) : initialValue = _initialValueToMulti(initialValue),
        onSaved = _onSavedToMulti(onSaved),
        validator = _validatorToMulti(validator),
@@ -39,24 +39,26 @@ class ImagePickerField extends StatefulWidget {
   final String? labelText;
   final String? hintText;
   final String? errorText;
-  final List<Fragment$AttachmentFragment> initialValue;
+  final List<Fragment$AttachmentThumbnailSmallFragment> initialValue;
   final bool required;
-  final FormFieldSetter<List<Fragment$AttachmentFragment>>? onSaved;
-  final FormFieldValidator<List<Fragment$AttachmentFragment>>? validator;
+  final FormFieldSetter<List<Fragment$AttachmentThumbnailSmallFragment>>? onSaved;
+  final FormFieldValidator<List<Fragment$AttachmentThumbnailSmallFragment>>? validator;
   final bool isMulti;
 
-  static List<Fragment$AttachmentFragment> _initialValueToMulti(Fragment$AttachmentFragment? value) {
+  static List<Fragment$AttachmentThumbnailSmallFragment> _initialValueToMulti(
+    Fragment$AttachmentThumbnailSmallFragment? value,
+  ) {
     return [?value];
   }
 
-  static FormFieldSetter<List<Fragment$AttachmentFragment>>? _onSavedToMulti(
-    FormFieldSetter<Fragment$AttachmentFragment>? onSaved,
+  static FormFieldSetter<List<Fragment$AttachmentThumbnailSmallFragment>>? _onSavedToMulti(
+    FormFieldSetter<Fragment$AttachmentThumbnailSmallFragment>? onSaved,
   ) {
     return (value) => onSaved?.call(value?.firstOrNull);
   }
 
-  static FormFieldValidator<List<Fragment$AttachmentFragment>>? _validatorToMulti(
-    FormFieldValidator<Fragment$AttachmentFragment>? validator,
+  static FormFieldValidator<List<Fragment$AttachmentThumbnailSmallFragment>>? _validatorToMulti(
+    FormFieldValidator<Fragment$AttachmentThumbnailSmallFragment>? validator,
   ) {
     return (value) => validator?.call(value?.firstOrNull);
   }
@@ -68,7 +70,7 @@ class ImagePickerField extends StatefulWidget {
 class _ImagePickerFieldState extends State<ImagePickerField> {
   final List<XFile> _pendingXFiles = [];
 
-  Future<void> _addImages(FormFieldState<List<Fragment$AttachmentFragment>> state) async {
+  Future<void> _addImages(FormFieldState<List<Fragment$AttachmentThumbnailSmallFragment>> state) async {
     final imagePicker = ImagePicker();
     final List<XFile> pickedXFiles = [];
 
@@ -121,7 +123,7 @@ class _ImagePickerFieldState extends State<ImagePickerField> {
     }
   }
 
-  String? _validator(BuildContext context, List<Fragment$AttachmentFragment>? value) {
+  String? _validator(BuildContext context, List<Fragment$AttachmentThumbnailSmallFragment>? value) {
     if (widget.required && value?.isNotEmpty != true) {
       return 'Can\'t be blank';
     }
@@ -131,7 +133,7 @@ class _ImagePickerFieldState extends State<ImagePickerField> {
 
   @override
   Widget build(BuildContext context) {
-    return FormField<List<Fragment$AttachmentFragment>>(
+    return FormField<List<Fragment$AttachmentThumbnailSmallFragment>>(
       initialValue: widget.initialValue,
       onSaved: widget.onSaved,
       validator: (value) => _validator(context, value),

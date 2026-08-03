@@ -240,6 +240,7 @@ class _BoardScreenState extends State<BoardScreen> {
                       children: [
                         if (board.backgroundImageAttachment != null)
                           CachedNetworkImage(
+                            cacheKey: 'attachment_${board.backgroundImageAttachment!.id}',
                             imageUrl: board.backgroundImageAttachment!.url.toString(),
                             fit: BoxFit.cover,
                             useOldImageOnUrlChange: true,

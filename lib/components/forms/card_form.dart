@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../build_context.dart';
-import '../../graphql/fragments/attachment_fragment.graphql.dart';
+import '../../graphql/fragments/attachment_thumbnail_small_fragment.graphql.dart';
 import '../../graphql_client.dart';
 import '../label_chip.dart';
 import '../../graphql/fragments/label_fragment.graphql.dart';
@@ -39,9 +39,9 @@ class CardForm<T> extends StatefulWidget {
 
 class _CardFormState<T> extends State<CardForm<T>> {
   Fragment$ListFragment? _list;
-  Fragment$AttachmentFragment? _coverImageAttachment;
+  Fragment$AttachmentThumbnailSmallFragment? _coverImageAttachment;
   String _content = '';
-  List<Fragment$AttachmentFragment> _attachments = [];
+  List<Fragment$AttachmentThumbnailSmallFragment> _attachments = [];
   List<Fragment$LabelFragment> _labels = [];
   String? _errorList;
   String? _errorCoverImageAttachment;

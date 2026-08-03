@@ -1,0 +1,4 @@
+fragment AttachmentThumbnailSmallFragment on AttachmentObject {
+    ...AttachmentFragment
+    thumbnailUrl
+}

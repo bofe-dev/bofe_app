@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../build_context.dart';
@@ -8,6 +7,7 @@ import '../constants.dart';
 import '../graphql/fragments/card_item_fragment.graphql.dart';
 import '../graphql/mutations/update_card_list.graphql.dart';
 import '../graphql/mutations/update_card_position.graphql.dart';
+import 'cached_image_attachment.dart';
 import 'card_menu_anchor.dart';
 import 'card_metadata.dart';
 import 'label_chip.dart';
@@ -124,12 +124,10 @@ class CardItem extends StatelessWidget {
               if (card.coverImageAttachment?.thumbnailUrl != null)
                 ClipRRect(
                   borderRadius: BorderRadius.only(topLeft: borderRadius.topLeft, topRight: borderRadius.topRight),
-                  child: CachedNetworkImage(
-                    useOldImageOnUrlChange: true,
-                    imageUrl: card.coverImageAttachment!.thumbnailUrl.toString(),
+                  child: CachedImageAttachment.thumbnailMedium(
+                    attachment: card.coverImageAttachment!,
                     width: 320,
                     height: 100,
-                    fit: BoxFit.cover,
                   ),
                 ),
               Padding(

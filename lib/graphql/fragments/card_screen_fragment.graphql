@@ -1,12 +1,10 @@
 fragment CardScreenFragment on CardObject {
     ...CardFragment
     coverImageAttachment {
-        id
-        thumbnailUrl(width: 1024, height: 1024)
-        createdAt
+        ...AttachmentThumbnailLargeFragment
     }
     content
     allAttachments {
-        ...AttachmentFragment
+        ...AttachmentThumbnailSmallFragment
     }
 }

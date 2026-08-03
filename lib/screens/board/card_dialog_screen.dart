@@ -65,10 +65,12 @@ class CardDialogScreen extends StatelessWidget {
                         Row(
                           spacing: 6,
                           children: [
-                            CardMetadata(
-                              card: card,
-                              showListName: true,
-                              onUserTap: card.user != null ? () => context.router.pushToUser(card.user!) : null,
+                            Expanded(
+                              child: CardMetadata(
+                                card: card,
+                                showListName: true,
+                                onUserTap: card.user != null ? () => context.router.pushToUser(card.user!) : null,
+                              ),
                             ),
                             CardMenuAnchor(
                               card: card,

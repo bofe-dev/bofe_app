@@ -8,7 +8,6 @@ import '../graphql/fragments/card_item_fragment.graphql.dart';
 import '../graphql/mutations/update_card_list.graphql.dart';
 import '../graphql/mutations/update_card_position.graphql.dart';
 import 'cached_image_attachment.dart';
-import 'card_menu_anchor.dart';
 import 'card_metadata.dart';
 import 'label_chip.dart';
 import 'loading_overlay.dart';
@@ -137,13 +136,7 @@ class CardItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
-                      spacing: 6,
-                      children: [
-                        CardMetadata(card: card, showListName: showListName),
-                        CardMenuAnchor(card: card, iconSize: 20),
-                      ],
-                    ),
+                    CardMetadata(card: card, showListName: showListName),
                     Text(card.content, maxLines: 3, overflow: TextOverflow.fade, style: TextStyle(fontSize: 16)),
                     if (card.attachmentsCount > 0)
                       Row(

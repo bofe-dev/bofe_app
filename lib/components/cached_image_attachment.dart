@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image_ce/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../graphql/fragments/attachment_thumbnail_small_fragment.graphql.dart';
@@ -13,11 +13,7 @@ class CachedImageAttachment extends CachedNetworkImage {
     super.width,
     super.height,
   }) : assert(attachment.thumbnailUrl != null),
-       super(
-         imageUrl: attachment.thumbnailUrl!.toString(),
-         cacheKey: 'thumbnail_small_${attachment.id}',
-         useOldImageOnUrlChange: true,
-       );
+       super(imageUrl: attachment.thumbnailUrl!.toString(), useOldImageOnUrlChange: true);
 
   CachedImageAttachment.thumbnailMedium({
     super.key,
@@ -26,11 +22,7 @@ class CachedImageAttachment extends CachedNetworkImage {
     super.width,
     super.height,
   }) : assert(attachment.thumbnailUrl != null),
-       super(
-         imageUrl: attachment.thumbnailUrl!.toString(),
-         cacheKey: 'thumbnail_medium_${attachment.id}',
-         useOldImageOnUrlChange: true,
-       );
+       super(imageUrl: attachment.thumbnailUrl!.toString(), useOldImageOnUrlChange: true);
 
   CachedImageAttachment.thumbnailLarge({
     super.key,
@@ -39,9 +31,5 @@ class CachedImageAttachment extends CachedNetworkImage {
     super.width,
     super.height,
   }) : assert(attachment.thumbnailUrl != null),
-       super(
-         imageUrl: attachment.thumbnailUrl!.toString(),
-         cacheKey: 'thumbnail_large_${attachment.id}',
-         useOldImageOnUrlChange: true,
-       );
+       super(imageUrl: attachment.thumbnailUrl!.toString(), useOldImageOnUrlChange: true);
 }

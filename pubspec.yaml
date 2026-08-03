@@ -60,6 +60,7 @@ dependencies:
     video_player: ^2.13.0
     world_info_plus: ^1.0.1
     share_plus: ^13.3.0
+
 dev_dependencies:
     flutter_test:
         sdk: flutter
